@@ -16,7 +16,7 @@
 
 1. Clone the repository or download the project files.
 2. Open the project in intellij
-3. Run the `Menu` class.
+3. Run the `Main` class.
 
 ### Example 
 
