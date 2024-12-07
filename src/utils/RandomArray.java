@@ -2,7 +2,7 @@ package src.utils;
 
 import java.util.Random;
 
-public class Utils {
+public class RandomArray {
     // Generate a random array of integers
     public static Integer[] generateRandomArray(int size) {
         Random random = new Random();
