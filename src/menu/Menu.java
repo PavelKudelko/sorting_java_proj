@@ -28,10 +28,10 @@ public class Menu {
                     performBinarySearch(scanner);
                     break;
                 case "3":
-                    performN2Search();
+                    performN2Sort();
                     break;
                 case "4":
-                    performLogNSearch();
+                    performLogNSort();
                     break;
                 case "5":
                     sortingPerformance();
@@ -111,7 +111,7 @@ public class Menu {
         // empty line for formatting
         System.out.println();
     }
-    private void performN2Search() {
+    private void performN2Sort() {
         System.out.println("Data set before insertion sorting:");
         // generate set of 10 nums (from ./utils/RandomArray)
         Integer[] randomSetOfNums = RandomArray.generateRandomArray(10);
@@ -124,7 +124,7 @@ public class Menu {
         RandomArray.printArray(randomSetOfNums);
         System.out.println();
     }
-    private void performLogNSearch() {
+    private void performLogNSort() {
         System.out.println("Data set before merge sorting:");
         // generate set of 10 nums (from ./utils/RandomArray)
         Integer[] randomSetOfNums = RandomArray.generateRandomArray(10);
