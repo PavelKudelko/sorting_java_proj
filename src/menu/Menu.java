@@ -2,7 +2,8 @@ package src.menu;
 
 import src.search.Searching;
 import src.sort.Sorting;
-import src.utils.Utils;
+import src.utils.RandomArray;
+import src.utils.SortPerformance;
 
 import java.util.Scanner;
 
@@ -17,7 +18,7 @@ public class Menu {
         do {
             printMenu();
             // obtain user's choice (1 - 5 or q/Q)
-            System.out.println("Your choice: ");
+            System.out.print("Your choice: ");
             choice = scanner.nextLine().trim();
             switch (choice) {
                 case "1":
@@ -60,9 +61,20 @@ public class Menu {
     }
 
     private void performLinearSearch(Scanner scanner) {
-        System.out.println("In the list are values 0, ..., 9; which value would you like to search with linear search? ");
-        int valueToSearch = scanner.nextInt();
-        scanner.nextLine();
+        // bad user input handling
+        int valueToSearch = -1;
+        boolean validInput = false;
+        while (!validInput) {
+            System.out.print("In the list are values 0, ..., 9; which value would you like to search with linear search? ");
+            if (scanner.hasNextInt()) {
+                valueToSearch = scanner.nextInt();
+                scanner.nextLine();
+                validInput = true;
+            } else {
+                System.out.println("Invalid input. Please try again.");
+                scanner.nextLine(); // Clear the invalid input
+            }
+        }
         // bool for handling search
         boolean found = Searching.linearSearch(data, 0, data.length - 1, valueToSearch);
         if (found) {
@@ -75,10 +87,20 @@ public class Menu {
         System.out.println();
     }
     private void performBinarySearch(Scanner scanner) {
-        System.out.println("In the list are values 0, ..., 9; which value would you like to search with binary search? ");
-        int valueToSearch = scanner.nextInt();
-        scanner.nextLine();
-        // bool for handling search
+        // bad user input handling
+        int valueToSearch = -1;
+        boolean validInput = false;
+        while (!validInput) {
+            System.out.print("In the list are values 0, ..., 9; which value would you like to search with binary search? ");
+            if (scanner.hasNextInt()) {
+                valueToSearch = scanner.nextInt();
+                scanner.nextLine();
+                validInput = true;
+            } else {
+                System.out.println("Invalid input. Please try again.");
+                scanner.nextLine(); // Clear the invalid input
+            }
+        }
         boolean found = Searching.linearSearch(data, 0, data.length - 1, valueToSearch);
         if (found) {
             System.out.println("Found");
@@ -91,31 +113,48 @@ public class Menu {
     }
     private void performN2Search() {
         System.out.println("Data set before insertion sorting:");
-        // generate set of 10 nums (from ./utils/Utils)
-        Integer[] randomSetOfNums = Utils.generateRandomArray(10);
-        Utils.printArray(randomSetOfNums);
+        // generate set of 10 nums (from ./utils/RandomArray)
+        Integer[] randomSetOfNums = RandomArray.generateRandomArray(10);
+        RandomArray.printArray(randomSetOfNums);
         // empty line for formatting
         System.out.println();
         System.out.println("Data set after insertion sorting:");
         // sort with insertion sort
         Sorting.insertionSort(randomSetOfNums);
-        Utils.printArray(randomSetOfNums);
+        RandomArray.printArray(randomSetOfNums);
         System.out.println();
     }
     private void performLogNSearch() {
         System.out.println("Data set before merge sorting:");
-        // generate set of 10 nums (from ./utils/Utils)
-        Integer[] randomSetOfNums = Utils.generateRandomArray(10);
-        Utils.printArray(randomSetOfNums);
+        // generate set of 10 nums (from ./utils/RandomArray)
+        Integer[] randomSetOfNums = RandomArray.generateRandomArray(10);
+        RandomArray.printArray(randomSetOfNums);
         // empty line for formatting
         System.out.println();
         System.out.println("Data set after merge sorting:");
         // sort with merge sort
         Sorting.mergeSort(randomSetOfNums);
-        Utils.printArray(randomSetOfNums);
+        RandomArray.printArray(randomSetOfNums);
         System.out.println();
     }
     private void sortingPerformance() {
-        System.out.println("not implemented yet");
+        System.out.println("Sorting performance:\n");
+
+        // Print the header for array sizes
+        // seven tabs = 32 chars
+        System.out.print("\t".repeat(8));
+        for (int size = 1000; size <= 10000; size += 1000) {
+            System.out.printf("%-14d", size);
+        }
+        System.out.println();
+
+        // Process sorting algorithms
+        // Class::method is a method reference
+        SortPerformance.runSort("Selection sort", Sorting::selectionSort);
+        SortPerformance.runSort("Insertion sort", Sorting::insertionSort);
+        SortPerformance.runSort("Bubble sort", Sorting::bubbleSort);
+        SortPerformance.runSort("Merge sort", Sorting::mergeSort);
+        SortPerformance.runSort("Quick sort", Sorting::quickSort);
+        System.out.println();
     }
 }
